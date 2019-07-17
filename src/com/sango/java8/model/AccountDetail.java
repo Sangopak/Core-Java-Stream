@@ -1,4 +1,4 @@
-package com.sango.stream;
+package com.sango.java8.model;
 
 import java.util.List;
 import java.util.Set;

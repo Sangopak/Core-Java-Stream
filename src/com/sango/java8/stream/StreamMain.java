@@ -1,10 +1,14 @@
-package com.sango.stream;
+package com.sango.java8.stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.sango.java8.model.AccountDetail;
 
 public class StreamMain {
 
@@ -24,6 +28,11 @@ public class StreamMain {
 		listAccountDetail.add(new AccountDetail(Arrays.asList("Chase Saphaire Reserve", "Auto Loan"), 20, "Open", "Nick Fury"));
 		listAccountDetail.add(new AccountDetail(Arrays.asList("Chase Unlimited Freedom Card","Chase Saphaire Reserve", "Auto Loan"), 19, "Open", "Star Lord"));
 		
+		Map<String,List<String>> personMap = new HashMap<String,List<String>>();
+		personMap.put("Iron Man", Arrays.asList("Knowledge","Arc Reactor","Super smart"));
+		personMap.put("The Hulk", Arrays.asList("Knowledge","Gama Rediation","Super streangth"));
+		personMap.put("Dr Strange", Arrays.asList("Knowledge","Time Infinity Stone","Super smart","Draws power from other universes"));
+		personMap.put("Captain Marvel", Arrays.asList("Grit","Teasract"));
 		
 		List<AccountDetail> openAccountList = listAccountDetail.stream()
 				.filter(accountDetail -> accountDetail.getAccountStatus().equalsIgnoreCase("Open"))
@@ -70,6 +79,14 @@ public class StreamMain {
 				.map(accountDetail -> accountDetail.getAccountName())
 				.flatMap(accountName -> accountName.stream())
 				.sorted(Comparator.comparing(String::toString))
+				.peek(System.out::println)
+				.collect(Collectors.toList());
+		
+		System.out.println("**********");
+		
+		List<List<String>> abilitiesIronMan = personMap.entrySet().stream()
+				.filter(person -> person.getKey().equalsIgnoreCase("Iron Man"))
+				.map(person -> person.getValue())
 				.peek(System.out::println)
 				.collect(Collectors.toList());
 		
